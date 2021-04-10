@@ -1,6 +1,6 @@
 local runsrvc = game:GetService("RunService")
 
-local alterlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UILibV7/main/UILibv1.0.lua"))()
+local alterlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua.lua"))()
 
 local main = alterlib:Window("The Maze")
 
