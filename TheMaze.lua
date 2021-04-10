@@ -101,4 +101,5 @@ local slideflash = tab:Slider("Brightness", 0, 10, 10, function(bright)
 end)
 
 Settings()
+Info()
 Credits("Scripts by: AlterRainbow#6089")
