@@ -61,7 +61,7 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function()
     JesusLight.Range = 60
 end)
 
-local jesus = tab:Toggle("Be a flashlight.", function(t)
+local jesus = plrTAB:Toggle("Be a flashlight.", function(t)
     run = t
     
     while run do 
@@ -76,7 +76,7 @@ local function RGB(X)
     return math.acos(math.cos(X*math.pi))/math.pi
 end
 
-local rnb = tab:Toggle("RGB Flashlight", function(ass)
+local rnb = plrTAB:Toggle("RGB Flashlight", function(ass)
     rgbnigga = ass
     
     while rgbnigga do
@@ -94,7 +94,7 @@ local rnb = tab:Toggle("RGB Flashlight", function(ass)
     end
 end)
 
-local slideflash = tab:Slider("Brightness", 0, 10, 10, function(bright)
+local slideflash = plrTAB:Slider("Brightness", 0, 10, 10, function(bright)
     if game.Players.LocalPlayer.Character.Torso.JESUS then
         game.Players.LocalPlayer.Character.Torso.JESUS.Brightness = bright
     end
