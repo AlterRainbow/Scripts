@@ -1,5 +1,5 @@
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua"))()
-local main = lib:Window("SCP-3008")
+local libr = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua"))()
+local main = libr:Window("SCP-3008")
 
 local tab = main:Tab("Self")
 local tggle = tab:Button("Infinite stamina.", function()
