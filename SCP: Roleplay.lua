@@ -47,8 +47,16 @@ local bttn = scps:Button("Enrage SCP-096", function()
     repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
     local plr = game.Players.LocalPlayer
     local plrRoot = plr.Character.HumanoidRootPart
+    local old = plrRoot.CFrame
     local sgInfo = TweenInfo.new(0.5)
-    tweenService:Create(plrRoot, sgInfo, {CFrame = (game:GetService("Workspace").SCPs["SCP-096"].Rig.Head.CFrame * CFrame.Angles (0, 0, 180))}):Play()
+    local sgTween = tweenService:Create(plrRoot, sgInfo, {CFrame = game:GetService("Workspace").SCPs["SCP-096"].Rig.Head.CFrame})
+    
+    sgTween.Completed:Connect(function()
+        wait(5)
+        tweenService:Create(plrRoot, sgInfo, {CFrame = old}):Play()
+    end)
+    
+    sgTween:Play()
 end)
 
 Settings()
