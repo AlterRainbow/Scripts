@@ -32,7 +32,10 @@ faggots = {
     "BeautifullyBalanced",
     "animalplanet30",
     "AgentFunds",
-    "ByteFunds"
+    "ByteFunds",
+    "PureIntention",
+    "Moo_Moo271",
+    "FemboyFunds",
 }
 
 return faggots
