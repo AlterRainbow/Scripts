@@ -38,7 +38,8 @@ faggots = {
     "FemboyFunds",
     "MrOrangejuice97",
     "OnlyFunds",
-    "AxolotlFunds"
+    "AxolotlFunds",
+    "40jarigeMetZwarteLul"
 }
 
 return faggots
