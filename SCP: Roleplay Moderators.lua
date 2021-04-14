@@ -39,6 +39,7 @@ faggots = {
     "MrOrangejuice97",
     "OnlyFunds",
     "AxolotlFunds",
+    "Nocturno_Plays",
 }
 
 return faggots
