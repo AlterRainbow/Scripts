@@ -1,3 +1,5 @@
+if not syn then game.Players.LocalPlayer:Kick("Dm me if you got protosmasher.")
+
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua"))()
 
 local tweenService = game:GetService("TweenService")
