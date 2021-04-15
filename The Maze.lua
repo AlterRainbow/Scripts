@@ -1,3 +1,5 @@
+if not syn then game.Players.LocalPlayer:Kick("Dm me if you got protosmasher.")
+
 local runsrvc = game:GetService("RunService")
 
 local Alterlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua"))()
