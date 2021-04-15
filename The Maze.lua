@@ -45,7 +45,7 @@ JesusLight = Instance.new("PointLight")
 JesusLight = Instance.new("PointLight")
 JesusLight.Name = "JESUS"
 JesusLight.Parent = game.Players.LocalPlayer.Character:WaitForChild("Torso")
-JesusLight.Brightness = 10
+JesusLight.Brightness = 8
 JesusLight.Color = Color3.fromRGB(255, 255, 255)
 JesusLight.Enabled = false
 JesusLight.Range = 60
@@ -55,7 +55,7 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function()
     JesusLight = Instance.new("PointLight")
     JesusLight.Name = "JESUS"
     JesusLight.Parent = game.Players.LocalPlayer.Character:WaitForChild("Torso")
-    JesusLight.Brightness = 10
+    JesusLight.Brightness = 8
     JesusLight.Color = Color3.fromRGB(255, 255, 255)
     JesusLight.Enabled = false
     JesusLight.Range = 60
@@ -63,6 +63,7 @@ end)
 
 local jesus = plrTAB:Toggle("Be a flashlight.", function(t)
     run = t
+    JesusLight.Brightness = 8
     
     while run do 
         wait()
@@ -94,7 +95,7 @@ local rnb = plrTAB:Toggle("RGB Flashlight", function(ass)
     end
 end)
 
-local slideflash = plrTAB:Slider("Brightness", 0, 10, 10, function(bright)
+local slideflash = plrTAB:Slider("Brightness", 0, 10, 8, function(bright)
     if game.Players.LocalPlayer.Character.Torso.JESUS then
         game.Players.LocalPlayer.Character.Torso.JESUS.Brightness = bright
     end
