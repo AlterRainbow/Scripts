@@ -1,4 +1,6 @@
-if not syn then game.Players.LocalPlayer:Kick("Dm me if you got protosmasher.")
+if not syn then
+    game.Players.LocalPlayer:Kick("Dm me if you got protosmasher.")
+end
 
 local runsrvc = game:GetService("RunService")
 
