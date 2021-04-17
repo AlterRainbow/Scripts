@@ -54,18 +54,22 @@ local raketab = main:Tab("Rake")
 local tggleantirake = raketab:Toggle("Anti-rake", function(stte)
     
     run = stte
+    behind = false
     
     while run do
-        if not game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Torso then
-            break
-        elseif not game.workspace.Rake then
-            break
-        end
+        repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
+        repeat wait() until game.workspace.Rake
         
         local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.workspace.Rake.HumanoidRootPart.Position).Magnitude
         
-        if distance < 25 then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Position = (game.workspace.Rake.HumanoidRootPart.Position + Vector3.new(0, 30, 0))
+        if distance < 35 then
+            if behind then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Position = (game.workspace.Rake.HumanoidRootPart.Position + Vector3.new(0, 0, -40))
+            elseif behind == false then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Position = (game.workspace.Rake.HumanoidRootPart.Position + Vector3.new(0, 0, 40))
+            end
+            
+            behind = not behind 
         end
         wait()
     end
