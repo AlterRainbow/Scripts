@@ -1,3 +1,5 @@
+repeat wait() until game:IsLoaded()
+
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua"))()
 
 local main = lib:Window("The Rake Fan Remake")
