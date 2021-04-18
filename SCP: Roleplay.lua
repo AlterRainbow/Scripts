@@ -25,8 +25,9 @@ local hdname = AntiBan:Button("Hide name", function()
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
 
     game.Players.LocalPlayer.CharacterAdded:Connect(function()
-        repeat wait() until game.Players.LocalPlayer.Character.Head
-        game.Players.LocalPlayer.Character.Head.Tag:Destroy()
+        for i = 1, 100 do
+            game.Players.LocalPlayer.Character:WaitForChild("Head"):WaitForChild("Tag"):Destroy()
+        end
     end)
 end)
 
