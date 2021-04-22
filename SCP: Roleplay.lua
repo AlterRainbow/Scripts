@@ -173,6 +173,8 @@ local tggle = scps:Toggle("Infect everyone with SCP-409.", function(state)
     end
 end)
 
+local notice = scps:Label("The game devs have disabled SCP-409.")
+
 local zombie = scps:Toggle("Infect everyone with SCP-008.", function(nig)
     cock = nig
     
