@@ -207,4 +207,4 @@ end)
 
 Settings()
 Info()
-Credits("Scripts by: AlterRainbow#6089")
+Credits("Scripts by: Alter#6089")
