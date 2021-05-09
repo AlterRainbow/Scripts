@@ -100,9 +100,9 @@ local tpdp = tp:Dropdown("Teleport to:", {
     ["SCP-1025 Containment"] = CFrame.new(67.8757935, 40.3479881, -151.297623, -0.013194263, -1.93714628e-11, -0.999913037, -1.73909619e-11, 1, -1.91436693e-11, 0.999913037, 1.71368614e-11, -0.013194263),
     ["SCP-2950 Containment"] = CFrame.new(-215.232849, 40.3479881, 192.785034, -0.000512978644, 4.49416468e-08, 0.999999881, -1.05422848e-09, 1, -4.4942194e-08, -0.999999881, -1.07728271e-09, -0.000512978644),
     ["SCP-1299"] = CFrame.new(138.356674, 40.3479881, -66.5386963, -0.999959707, 0, 0.00898625329, 0, 1, -0, -0.00898625329, 0, -0.999959707),
-    ["SCP-457 Containment"] = CFrame.new(443.827515, 40.3479881, 173.245941, -0.999660969, 0, 0.0260475371, 0, 1, 0, -0.0260475371, 0, -0.999660969),
+    ["SCP-457 Containment"] = CFrame.new(780.831421, 40.3479881, -74.4498901, -0.999988973, -5.19210364e-09, -0.0047054803, -4.71940975e-09, 1, -1.00467098e-07, 0.0047054803, -1.00443792e-07, -0.999988973),
     ["SCP-049 Containment"] = CFrame.new(607.829102, 40.3479881, 50.6000938, -0.0166237336, 0, 0.999861836, 0, 1, 0, -0.999861836, 0, -0.0166237336),
-    ["SCP-966 Containment"] = CFrame.new(607.829102, 40.3479881, 50.6000938, -0.0166237336, 0, 0.999861836, 0, 1, 0, -0.999861836, 0, -0.0166237336),
+    ["SCP-966 Containment"] = CFrame.new(653.028931, 40.3479881, 46.9078407, 0.0374581888, -8.30897378e-08, -0.999298215, -3.72054298e-09, 1, -8.32875457e-08, 0.999298215, 6.83773038e-09, 0.0374581888),
     ["SCP-409 Containment"] = CFrame.new(-43.700367, 40.3479729, -69.2229919, -0.997379243, -8.02359779e-08, -0.0723508447, -7.92350292e-08, 1, -1.67048082e-08, 0.0723508447, -1.09283071e-08, -0.997379243),
     ["Helipad"] = CFrame.new(-573.932983, 31.156765, 482.278534, 0.999801993, 0, 0.0198955834, 0, 1, 0, -0.0198955834, 0, 0.999801993),
     ["Containment Shelter"] = CFrame.new(230.015823, 40.3044395, 418.03009, 0.999654591, 2.28488261e-06, 0.0262805205, -1.49617236e-07, 1, -8.12514336e-05, -0.0262805205, 8.12194412e-05, 0.999654591),
@@ -148,32 +148,29 @@ local tggle = scps:Toggle("Infect everyone with SCP-409.", function(state)
         repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
         local plr = game.Players.LocalPlayer
         local plrRoot = plr.Character.HumanoidRootPart
+        local oldcframe = plrRoot.CFrame
         
+        tweenService:Create(plrRoot, INFO, {CFrame = CFrame.new(-43.700367, 40.3479729, -69.2229919, -0.997379243, -8.02359779e-08, -0.0723508447, -7.92350292e-08, 1, -1.67048082e-08, 0.0723508447, -1.09283071e-08, -0.997379243)}):Play()
+        wait(3)
         firetouchinterest(plrRoot, scp, 0)
         firetouchinterest(plrRoot, scp, 1)
+        wait(1)
+        tweenService:Create(plrRoot, INFO, {CFrame = oldcframe}):Play()
+        
+        wait(2)
         
         for i, v in pairs(game.Players:GetPlayers()) do
             if v ~= plr and not table.find(ignore, v.Name) then
                 if v.Character.HumanoidRootPart and game.Players.LocalPlayer.Character.HumanoidRootPart then
-                    local completed = false
-                    local current = tweenService:Create(plrRoot, INFO, {CFrame = v.Character.HumanoidRootPart.CFrame})
-                    
-                    current.Completed:Connect(function()
-                        completed = true
-                    end)
-                        
-                    current:Play()
-                    
-                    repeat wait() until completed
+                    firetouchinterest(plr.Character.RightLowerArm, v.Character.HumanoidRootPart, 0)
+                    firetouchinterest(plr.Character.RightLowerArm, v.Character.HumanoidRootPart, 1)
                 end
             end
         end
-        error("ass")
+        error("infected everyone")
         break
     end
 end)
-
-local notice = scps:Label("The game devs have disabled SCP-409.")
 
 local zombie = scps:Toggle("Infect everyone with SCP-008.", function(nig)
     cock = nig
