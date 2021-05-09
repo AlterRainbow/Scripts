@@ -151,13 +151,10 @@ local tggle = scps:Toggle("Infect everyone with SCP-409.", function(state)
         local oldcframe = plrRoot.CFrame
         
         tweenService:Create(plrRoot, INFO, {CFrame = CFrame.new(-43.700367, 40.3479729, -69.2229919, -0.997379243, -8.02359779e-08, -0.0723508447, -7.92350292e-08, 1, -1.67048082e-08, 0.0723508447, -1.09283071e-08, -0.997379243)}):Play()
-        wait(3)
         firetouchinterest(plrRoot, scp, 0)
         firetouchinterest(plrRoot, scp, 1)
-        wait(1)
-        tweenService:Create(plrRoot, INFO, {CFrame = oldcframe}):Play()
-        
         wait(2)
+        tweenService:Create(plrRoot, INFO, {CFrame = oldcframe}):Play()
         
         for i, v in pairs(game.Players:GetPlayers()) do
             if v ~= plr and not table.find(ignore, v.Name) then
