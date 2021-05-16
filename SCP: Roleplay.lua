@@ -114,7 +114,7 @@ local tpdp = tp:Dropdown("Teleport to:", {
         repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
         local plr = game.Players.LocalPlayer
         local plrRoot = plr.Character.HumanoidRootPart
-        local tpInfo = TweenInfo.new(0.1)
+        local tpInfo = TweenInfo.new(0.3)
         
         plr.Character.Humanoid.StateChanged:Connect(function(OLDSTATE, NEWSTATE)
             if NEWSTATE == Enum.HumanoidStateType.Seated then
@@ -242,7 +242,7 @@ local bttn = weap:Button("Get SCAR-H", function()
     local plr = game.Players.LocalPlayer
     local plrRoot = plr.Character.HumanoidRootPart
     local old = plrRoot.CFrame
-    local Hinfo = TweenInfo.new(0.1)
+    local Hinfo = TweenInfo.new(0.3)
     local hTween = tweenService:Create(plrRoot, Hinfo, {CFrame = CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483)})
     
     hTween.Completed:Connect(function()
