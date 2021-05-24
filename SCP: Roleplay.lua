@@ -1,85 +1,22 @@
 if not syn then
     game.Players.LocalPlayer:Kick("Dm me if you got protosmasher.")
 end
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua"))()
 
+--// Variables \\--
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua"))()
+local moderators = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/Scripts/main/SCP%3A%20Roleplay%20Moderators.lua"))()
 local tweenService = game:GetService("TweenService")
+local localPlayer = game.Players.LocalPlayer
+local scpsPath = game.workspace.SCPs
+local scp409 = scpsPath["SCP-409"]
+local scp008 = scpsPath["SCP-008"]
+local scp096 = scpsPath["SCP-096"]
+local fastTweenInfo = TweenInfo.new(0.1)
+local slowTweenInfo = TweenInfo.new(0.7)
 
-local main = lib:Window("SCP: Roleplay")
-
-local ignore = {}
-
-local scps = main:Tab("SCP")
-
-local weap = main:Tab("Weapons")
-
-local CD = main:Tab("Class-D")
-
-local tp = main:Tab("Teleports")
-
-local AntiBan = main:Tab("Anti-Ban")
-
-local hdname = AntiBan:Button("Hide name", function()
-    repeat wait() until game.Players.LocalPlayer.Character
-    
-    game.Players.LocalPlayer.Character.Humanoid.Health = 0
-
-    game.Players.LocalPlayer.CharacterAdded:Connect(function()
-        for i = 1, 100 do
-            game.Players.LocalPlayer.Character:WaitForChild("Head"):WaitForChild("Tag"):Destroy()
-        end
-    end)
-end)
-
-local plrs = {}
-
-for i, v in pairs(game.Players:GetPlayers()) do
-    if v ~= game.Players.LocalPlayer then
-        table.insert(plrs, v)
-    end
-end
-
-local tpplrs = tp:Dropdown("Teleport to a player.", plrs, function(chsn)
-    local plrTPINFO = TweenInfo.new(0.1)
-    if game.Players.LocalPlayer.Character and chsn.Character then
-        tweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, plrTPINFO, {CFrame = chsn.Character.HumanoidRootPart.CFrame}):Play()
-    end
-end)
-
-game.Players.PlayerAdded:Connect(function(playerfag)
-    tpplrs:Item(playerfag.Name, playerfag)
-end)
-
-game.Players.PlayerRemoving:Connect(function(playernig)
-    tpplrs:ItemRemove(playernig.Name)
-end)
-
-local antitggle = AntiBan:Toggle("Leave the game when a moderator joins.", function(banState)
-    
-    check = banState
-    
-    while check do
-        local mods = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/Scripts/main/SCP%3A%20Roleplay%20Moderators.lua"))()
-        
-        for gay, moderator in pairs(game.Players:GetPlayers()) do
-            if table.find(mods, moderator.Name) then
-                if isfolder("SCP Roleplay Anti-ban logs") and isfile("SCP Roleplay Anti-ban logs\\SCP Roleplay.txt") then
-                    appendfile("SCP Roleplay Anti-ban logs\\SCP Roleplay.txt", "\nModerator "..moderator.Name.." joined on "..os.date("%c")..".")
-                else
-                    makefolder("SCP Roleplay Anti-ban logs")
-                    writefile("SCP Roleplay Anti-ban logs\\SCP Roleplay.txt", "Moderator "..moderator.Name.." joined on "..os.date("%c")..".")
-                end
-                game.Players.LocalPlayer:Kick("Moderator "..moderator.Name.." is in the game.")
-                wait(10)
-                game:Shutdown()
-            end
-        end
-        
-        wait()
-    end
-end)
-
-local tpdp = tp:Dropdown("Teleport to:", {
+local players = {}
+local locations = {
     ["Class-D Containment"] = CFrame.new(-75.8707504, 40.4824829, 465.459351, 0.999510646, -2.90871527e-09, 0.0312808976, 1.70104031e-09, 1, 3.86340417e-08, -0.0312808976, -3.85619252e-08, 0.999510646),
     ["Chaos Insrugency Spawn"] = CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483),
     ["Administrative Department Spawn"] = CFrame.new(-110.002289, 40.3479767, 274.667328, 1, 0, 0, 0, 1, 0, 0, 0, 1),
@@ -108,147 +45,171 @@ local tpdp = tp:Dropdown("Teleport to:", {
     ["Containment Shelter"] = CFrame.new(230.015823, 40.3044395, 418.03009, 0.999654591, 2.28488261e-06, 0.0262805205, -1.49617236e-07, 1, -8.12514336e-05, -0.0262805205, 8.12194412e-05, 0.999654591),
     ["Nuclear Blast Shelter"] = CFrame.new(234.370987, 40.3044395, 461.834869, 0.999883413, 1.88937497e-06, 0.015285152, -1.38187727e-06, 1, -3.32125855e-05, -0.015285152, 3.31875817e-05, 0.999883413),
     ["Mysterious Room"] = CFrame.new(-34.5104599, 9.65492439, -249.908783, -0.999999285, -5.07114306e-09, 0.00101857481, -5.20921484e-09, 1, -1.35551488e-07, -0.00101857481, -1.35556718e-07, -0.999999285),
-},
+}
 
-    function(place)
-        repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
-        local plr = game.Players.LocalPlayer
-        local plrRoot = plr.Character.HumanoidRootPart
-        local tpInfo = TweenInfo.new(0.3)
+--// Functions \\--
+
+local function GetLocalPlayerCharacter()
+    repeat wait() until localPlayer.Character
+
+    return localPlayer.Character
+end
+
+local function GetLocalPlayerHumanoidRootPart()
+    repeat wait() until GetLocalPlayerCharacter().HumanoidRootPart
+
+    return GetLocalPlayerCharacter().HumanoidRootPart
+end
+
+local function TweenTo(cframe, fastMode)
+    local cframe = cframe or GetLocalPlayerHumanoidRootPart().CFrame
+    local fastMode = fastMode or true
+
+    if fastMode then
+        tweenService:Create(GetLocalPlayerHumanoidRootPart(), fastTweenInfo, {CFrame = cframe}):Play()
+    else
+        tweenService:Create(GetLocalPlayerHumanoidRootPart(), slowTweenInfo, {CFrame = cframe}):Play()
+    end
+end
+
+--// UI Variables \\--
+
+local main = library:Window("SCP: Roleplay")
+local scps = main:Tab("SCP")
+local weapons = main:Tab("Weapons")
+local teleports = main:Tab("Teleports")
+local antiBan = main:Tab("Anti-Ban")
+
+--// SCPs Tab \\--
+
+local infect409 = scps:Toggle("Infect everyone with SCP-409.", function(state)
+    run409 = state
+    
+    while run409 do
+        local startingCFrame = GetLocalPlayerHumanoidRootPart().CFrame
         
-        plr.Character.Humanoid.StateChanged:Connect(function(OLDSTATE, NEWSTATE)
-            if NEWSTATE == Enum.HumanoidStateType.Seated then
-                plr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+        TweenTo(CFrame.new(-56.1624794, 40.3479881, -38.4821701, -0.999674559, 6.94282818e-08, -0.0255114809, 7.11540693e-08, 1, -6.67397657e-08, 0.0255114809, -6.85332893e-08, -0.999674559), true)
+        wait(0.5)
+        firetouchinterest(GetLocalPlayerHumanoidRootPart(), scp409, 0)
+        firetouchinterest(GetLocalPlayerHumanoidRootPart(), scp409, 1)
+        wait(1)
+        TweenTo(startingCFrame, true)
+        
+        for x, y in pairs(game.Players:GetPlayers()) do
+            if y ~= localPlayer and GetLocalPlayerHumanoidRootPart() and y.Character.HumanoidRootPart then
+                firetouchinterest(GetLocalPlayerCharacter().RightLowerArm, y.Character.HumanoidRootPart, 0)
+                firetouchinterest(GetLocalPlayerCharacter().RightLowerArm, y.Character.HumanoidRootPart, 1)
             end
-        end)
-        
-        tweenService:Create(plrRoot, tpInfo, {CFrame = place}):Play()
-    end
-)
+        end
 
-local Butten = CD:Button("Escape as a Class-D", function()
-    repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
-    local plrTeam = game.Players.LocalPlayer.Team
-    if plrTeam ~= game:GetService("Teams")["Class - D"] then
-        print("You are not a Class-D.")
-        return
+        error("")
+        break
     end
-    local plr = game.Players.LocalPlayer
-    local plrRoot = plr.Character.HumanoidRootPart
-    local Dinfo = TweenInfo.new(0.1)
-    tweenService:Create(plrRoot, Dinfo, {CFrame = CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483)}):Play()
 end)
 
-local tggle = scps:Toggle("Infect everyone with SCP-409.", function(state)
+local infect008 = scps:Toggle("Infect everyone with SCP-008.", function(state)
+    run008 = state
+    
+    while run008 do        
+        local startingCFrame = GetLocalPlayerHumanoidRootPart().CFrame
+
+        TweenTo(scp008.Particle.CFrame, false)
+        
+        wait(2)
+
+        for a, b in pairs(game.Players:GetPlayers()) do
+            if b ~= localPlayer and GetLocalPlayerHumanoidRootPart() and b.Character.HumanoidRootPart and b.Character.HumanoidRootPart.BrickColor.Name ~= "Olivine" then   
+                repeat TweenTo(b.Character.HumanoidRootPart.CFrame, true) wait(0.9) until b.Character.HumanoidRootPart.BrickColor.Name == "Olivine"
+            end
+        end
+
+        TweenTo(startingCFrame, true)
+
+        error("")
+        break
+    end
+end)
+
+local enrageSCP096 = scps:Button("Enrage SCP-096", function()
+    local startingCFrame = GetLocalPlayerHumanoidRootPart().CFrame
+
+    TweenTo(scp096.Rig.Head.CFrame, true)
+
+    wait(5)
+
+    TweenTo(startingCFrame)
+end)
+
+--// Weapons Tab \\--
+
+local getSCARH = weapons:Button("Obtain SCAR-H.", function()
+    local startingCFrame = GetLocalPlayerHumanoidRootPart().CFrame
+    
+    TweenTo(CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483), false)
+    
+    wait(0.3)
+
+    TweenTo(startingCFrame, true)
+end)
+
+--// Teleports Tab \\--
+
+for p, player in pairs(game.Players:GetPlayers()) do
+    if v ~= localPlayer then
+        table.insert(players, player)
+    end
+end
+
+local playerTeleport = teleports:Dropdown("Teleport to a player.", players, function(target)
+    if target.Character.HumanoidRootPart then
+        TweenTo(target.Character.HumanoidRootPart.CFrame, true)
+    end
+end)
+
+game.Players.PlayerAdded:Connect(function(joinedPlayer)
+    playerTeleport:Item(joinedPlayer.Name, joinedPlayer)
+end)
+
+game.Players.PlayerRemoving:Connect(function(disbandedPlayer)
+    playerTeleport:ItemRemove(disbandedPlayer.Name)
+end)
+
+local locationTeleport = teleports:Dropdown("Teleport to:", locations, function(location)                
+    TweenTo(location, true)
+end)
+
+--// Antiban Tab \\--
+
+local hideName = antiBan:Button("Hide name.", function()
+    GetLocalPlayerCharacter().Humanoid.Health = 0
+
+    localPlayer.CharacterAdded:Connect(function()
+        for i = 1, 100 do
+            GetLocalPlayerCharacter():WaitForChild("Head"):WaitForChild("Tag"):Destroy()
+        end
+    end)
+end)
+
+local antiModerator = antiBan:Toggle("Leave the game when a moderator joins.", function(state)
     run = state
     
-    local scp = game.workspace.SCPs["SCP-409"]
-    local INFO = TweenInfo.new(0.0000000001)
-    
     while run do
-        repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
-        local plr = game.Players.LocalPlayer
-        local plrRoot = plr.Character.HumanoidRootPart
-        local oldcframe = plrRoot.CFrame
-        
-        tweenService:Create(plrRoot, INFO, {CFrame = CFrame.new(-43.700367, 40.3479729, -69.2229919, -0.997379243, -8.02359779e-08, -0.0723508447, -7.92350292e-08, 1, -1.67048082e-08, 0.0723508447, -1.09283071e-08, -0.997379243)}):Play()
-        firetouchinterest(plrRoot, scp, 0)
-        firetouchinterest(plrRoot, scp, 1)
-        wait(3)
-        tweenService:Create(plrRoot, INFO, {CFrame = oldcframe}):Play()
-        
-        for i, v in pairs(game.Players:GetPlayers()) do
-            if v ~= plr and not table.find(ignore, v.Name) then
-                if v.Character.HumanoidRootPart and game.Players.LocalPlayer.Character.HumanoidRootPart then
-                    firetouchinterest(plr.Character.RightLowerArm, v.Character.HumanoidRootPart, 0)
-                    firetouchinterest(plr.Character.RightLowerArm, v.Character.HumanoidRootPart, 1)
+        for index, value in pairs(game.Players:GetPlayers()) do
+            if table.find(moderators, value.Name) then
+                if isfolder("SCP Roleplay Anti-ban logs") and isfile("SCP Roleplay Anti-ban logs\\SCP Roleplay.txt") then
+                    appendfile("SCP Roleplay Anti-ban logs\\SCP Roleplay.txt", "\nModerator "..value.Name.." joined on "..os.date("%c")..".")
+                else
+                    makefolder("SCP Roleplay Anti-ban logs")
+                    writefile("SCP Roleplay Anti-ban logs\\SCP Roleplay.txt", "Moderator "..value.Name.." joined on "..os.date("%c")..".")
                 end
+                localPlayer:Kick("Moderator "..value.Name.." is in the game.")
+                wait(10)
+                game:Shutdown()
             end
         end
-        error("infected everyone")
-        break
+        
+        wait()
     end
-end)
-
-local zombie = scps:Toggle("Infect everyone with SCP-008.", function(nig)
-    cock = nig
-    
-    local zombie = game:GetService("Workspace").SCPs["SCP-008"].Particle
-    local INFO = TweenInfo.new(0.5)
-    
-    while cock do
-        repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
-        local plr = game.Players.LocalPlayer
-        local plrRoot = plr.Character.HumanoidRootPart
-        local zombieInfo = TweenInfo.new(0.00000001)
-        
-        tweenService:Create(plrRoot, zombieInfo, {CFrame = zombie.CFrame}):Play()
-        
-        plr.Character.Humanoid.StateChanged:Connect(function(OLDSTATE, NEWSTATE)
-            if NEWSTATE == Enum.HumanoidStateType.Seated then
-                plr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
-            end
-        end)
-        
-        wait(1)
-        
-        for i, v in pairs(game.Players:GetPlayers()) do
-            if v ~= plr and not table.find(ignore, v.Name) then
-                if v.Character.HumanoidRootPart and game.Players.LocalPlayer.Character.HumanoidRootPart then
-                    local completed = false
-                    local current = tweenService:Create(plrRoot, INFO, {CFrame = v.Character.HumanoidRootPart.CFrame})
-                    
-                    current.Completed:Connect(function()
-                        completed = true
-                    end)
-                    
-                    current:Play()
-                    
-                    repeat wait() until completed
-                end
-            end
-        end
-        error("ass")
-        break
-    end
-end)
-
-local bttn = scps:Button("Enrage SCP-096", function()
-    repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
-    local plr = game.Players.LocalPlayer
-    local plrRoot = plr.Character.HumanoidRootPart
-    local old = plrRoot.CFrame
-    local sgInfo = TweenInfo.new(0.1)
-    local sgTween = tweenService:Create(plrRoot, sgInfo, {CFrame = game:GetService("Workspace").SCPs["SCP-096"].Rig.Head.CFrame})
-    
-    plr.Character.Humanoid.StateChanged:Connect(function(OLDSTATE, NEWSTATE)
-        if NEWSTATE == Enum.HumanoidStateType.Seated then
-            plr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
-        end
-    end)
-    
-    sgTween.Completed:Connect(function()
-        wait(5)
-        tweenService:Create(plrRoot, sgInfo, {CFrame = old}):Play()
-    end)
-    
-    sgTween:Play()
-end)
-
-local bttn = weap:Button("Get SCAR-H", function()
-    repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart
-    local plr = game.Players.LocalPlayer
-    local plrRoot = plr.Character.HumanoidRootPart
-    local old = plrRoot.CFrame
-    local Hinfo = TweenInfo.new(0.3)
-    local hTween = tweenService:Create(plrRoot, Hinfo, {CFrame = CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483)})
-    
-    hTween.Completed:Connect(function()
-        repeat wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Scar - H")
-        tweenService:Create(plrRoot, Hinfo, {CFrame = old}):Play()
-    end)
-    
-    hTween:Play()
 end)
 
 Settings()
