@@ -1,5 +1,5 @@
-if not syn then
-    game.Players.LocalPlayer:Kick("Dm me if you got protosmasher.")
+if not firetouchinterest then
+    game.Players.LocalPlayer:Kick("No firetouchinterest.")
 end
 
 --// Variables \\--
