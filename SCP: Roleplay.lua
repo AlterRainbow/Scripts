@@ -107,7 +107,7 @@ local infect409 = scps:Toggle("Infect everyone with SCP-409.", function(state)
     end
 end)
 
-local infect008 = scps:Toggle("Infect everyone with SCP-008.", function(state)
+--[[local infect008 = scps:Toggle("Infect everyone with SCP-008.", function(state)
     run008 = state
     
     while run008 do        
@@ -128,7 +128,9 @@ local infect008 = scps:Toggle("Infect everyone with SCP-008.", function(state)
         error("")
         break
     end
-end)
+end)]]
+
+scps:Label("SCP-008 will be temporarily disabled until I fix it.")
 
 local enrageSCP096 = scps:Button("Enrage SCP-096", function()
     local startingCFrame = GetLocalPlayerHumanoidRootPart().CFrame
