@@ -1,5 +1,5 @@
 if not firetouchinterest then
-    game.Players.LocalPlayer:Kick("No firetouchinterest.")
+    game.Players.LocalPlayer:Kick("Your exploit does not have firetouchinterest.")
 end
 
 --// Variables \\--
