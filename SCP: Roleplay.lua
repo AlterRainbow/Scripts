@@ -186,7 +186,7 @@ local hideName = antiBan:Button("Hide name.", function()
     GetLocalPlayerCharacter().Humanoid.Health = 0
 
     localPlayer.CharacterAdded:Connect(function()
-        for i = 1, 100 do
+        for i = 1, 99 do
             GetLocalPlayerCharacter():WaitForChild("Head"):WaitForChild("Tag"):Destroy()
         end
     end)
