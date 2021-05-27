@@ -76,7 +76,7 @@ end
 
 local main = library:Window("SCP: Roleplay")
 local scps = main:Tab("SCP")
-local weapons = main:Tab("Weapons")
+local combat = main:Tab("Combat")
 local teleports = main:Tab("Teleports")
 local antiBan = main:Tab("Anti-Ban")
 
@@ -142,9 +142,9 @@ local enrageSCP096 = scps:Button("Enrage SCP-096", function()
     TweenTo(startingCFrame)
 end)
 
---// Weapons Tab \\--
+--// Combat Tab \\--
 
-local getSCARH = weapons:Button("Obtain SCAR-H.", function()
+local getSCARH = combat:Button("Obtain SCAR-H.", function()
     local startingCFrame = GetLocalPlayerHumanoidRootPart().CFrame
     
     TweenTo(CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483), false)
@@ -157,7 +157,7 @@ end)
 --// Teleports Tab \\--
 
 for p, player in pairs(game.Players:GetPlayers()) do
-    if v ~= localPlayer then
+    if player ~= localPlayer then
         table.insert(players, player)
     end
 end
