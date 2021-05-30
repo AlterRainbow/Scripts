@@ -1,7 +1,3 @@
-if not firetouchinterest then
-    game.Players.LocalPlayer:Kick("Your exploit does not have firetouchinterest.")
-end
-
 --// Variables \\--
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/UI-Library/main/UILib.lua"))()
@@ -13,34 +9,34 @@ local scp409 = scpsPath["SCP-409"]
 local scp008 = scpsPath["SCP-008"]
 local scp096 = scpsPath["SCP-096"]
 local fastTweenInfo = TweenInfo.new(0.1)
-local slowTweenInfo = TweenInfo.new(0.7)
+local slowTweenInfo = TweenInfo.new(0.9)
 
 local players = {}
 local locations = {
     ["Class-D Containment"] = CFrame.new(-75.8707504, 40.4824829, 465.459351, 0.999510646, -2.90871527e-09, 0.0312808976, 1.70104031e-09, 1, 3.86340417e-08, -0.0312808976, -3.85619252e-08, 0.999510646),
     ["Chaos Insrugency Spawn"] = CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483),
-    ["Administrative Department Spawn"] = CFrame.new(-110.002289, 40.3479767, 274.667328, 1, 0, 0, 0, 1, 0, 0, 0, 1),
-    ["Mobile Task Force Spawn"] = CFrame.new(412.470642, 40.3479881, 121.936981, -0.999999881, 4.56792476e-33, 0.000273158774, 4.56850626e-33, 1, 2.12794049e-33, -0.000273158774, 2.12918798e-33, -0.999999881),
+    ["Administrative Department Spawn"] = CFrame.new(-440.00769, 46.2479858, 160.881638, -0.0384097248, 7.95913309e-08, 0.999262154, 4.70877914e-08, 1, -7.78401414e-08, -0.999262154, 4.40632313e-08, -0.0384097248),
+    ["Mobile Task Force Spawn"] = CFrame.new(410.456787, 40.3479767, 64.8888702, -0.999749601, -9.25807326e-05, -0.0223641731, -6.51823066e-05, 0.999999225, -0.00122582831, 0.0223642793, -0.00122406369, -0.999748826),
     ["Rapid Respone Team Spawn"] = CFrame.new(-466.836151, 93.6979904, 53.1530609, -0.0251200739, 2.87617081e-06, 0.999684691, -1.54432897e-07, 1, -2.88095998e-06, -0.999684691, -2.26754224e-07, -0.0251200739),
     ["O5 Council Spawn"] = CFrame.new(-486.312225, 50.2979698, 112.699371, 0.0236213263, -8.20277712e-09, 0.999720991, 4.27345326e-10, 1, 8.19497004e-09, -0.999720991, 2.33650016e-10, 0.0236213263),
     ["Internal Security Spawn"] = CFrame.new(-595.029846, 40.3479881, 205.168381, 0.00491444301, 0, -0.999987721, 0, 1, 0, 0.999987721, 0, 0.00491444301),
     ["Intelligence Agency Spawn"] = CFrame.new(-610.94696, 40.3479881, 202.350006, 1, 0, 0, 0, 1, 0, 0, 0, 1),
     ["Security Department Spawn"] = CFrame.new(-597.346497, 40.3479881, -36.1572418, -0.0154640637, -0.000159070245, -0.999880612, 5.64969014e-06, 1, -0.000159176649, 0.999880612, -8.11053542e-06, -0.0154640637),
-    ["Scientific Department Spawn"] = CFrame.new(72.9009857, 40.3479881, -234.726379, -0.00835041888, -9.10305999e-08, 0.999965131, 8.33635649e-09, 1, 9.11033879e-08, -0.999965131, 9.09681752e-09, -0.00835041888),
+    ["Scientific Department Spawn"] = CFrame.new(283.800873, 40.3479881, 39.8547478, 0.999829412, -1.12988778e-06, 0.0184787326, 1.3762342e-06, 1, -1.33185131e-05, -0.0184787326, 1.33416743e-05, 0.999829412),
     ["SCP-066 Containment"] = CFrame.new(-229.693985, 40.3479881, -41.3093719, 0.0462895148, 0, 0.998927951, 0, 1, 0, -0.998927951, 0, 0.0462895148),
     ["SCP-131 Containment"] = CFrame.new(-229.452576, 40.3479881, 299.949951, -0.999163032, 3.26003351e-06, 0.0409003645, 7.09775975e-07, 1, -6.23673841e-05, -0.0409003645, -6.22861844e-05, -0.999163032),
     ["SCP-023 Containment"] = CFrame.new(278.337036, 40.3969994, 251.396317, 0.995279849, -5.6657794e-09, -0.0970467106, -1.09434753e-10, 1, -5.95043126e-08, 0.0970467106, 5.92340612e-08, 0.995279849),
-    ["SCP-173 Containment"] = CFrame.new(146.146927, 40.3479881, 87.5640564, -0.0258881152, 3.29731087e-08, 0.999664843, 2.54811305e-09, 1, -3.29181766e-08, -0.999664843, 1.69506953e-09, -0.0258881152),
+    ["SCP-173 Containment"] = CFrame.new(203.690536, 53.9479828, 154.112366, -0.0269999951, 0, 0.999635518, 0, 1, 0, -0.999635518, 0, -0.0269999951),
     ["SCP-096 Containment"] = CFrame.new(650.145325, 40.3479881, -151.293854, -0.0346832275, -0, -0.99939841, 0, 1, -0, 0.99939841, 0, -0.0346832275),
     ["SCP-008 Containment"] = CFrame.new(526.653442, 40.3479881, 368.694946, -0.999994099, -2.60325406e-09, 0.00344139407, -2.8720808e-09, 1, -7.8110709e-08, -0.00344139407, -7.81201308e-08, -0.999994099),
     ["SCP-002 Containment"] = CFrame.new(-83.6653442, 20.0985031, 117.051331, 0.99993217, 0, 0.0116486652, 0, 1, 0, -0.0116486652, 0, 0.99993217),
-    ["SCP-1025 Containment"] = CFrame.new(87.1578522, 40.3479881, -155.159943, 0.999997556, 1.19760102e-09, -0.00221582246, -1.24967148e-09, 1, -2.34979627e-08, 0.00221582246, 2.35006734e-08, 0.999997556),
+    ["SCP-1025 Containment"] = CFrame.new(557.236755, 40.3479881, -154.547607, 0.999593019, 0, 0.0285278056, 0, 1, 0, -0.0285278056, 0, 0.999593019),
     ["SCP-2950 Containment"] = CFrame.new(-228.764801, 40.3479881, 181.870529, -0.0222034678, 5.59627473e-08, 0.999753416, 6.1455645e-09, 1, -5.58400757e-08, -0.999753416, 4.90420549e-09, -0.0222034678),
     ["SCP-1299 Containment"] = CFrame.new(131.087753, 40.3479881, -52.2083168, -0.999739289, -2.9651094e-08, 0.0228321478, -3.22316467e-08, 1, -1.12654789e-07, -0.0228321478, -1.13361352e-07, -0.999739289),
     ["SCP-457 Containment"] = CFrame.new(781.434753, 40.3479881, -53.7052574, -1, -9.03498526e-11, 8.32227015e-05, -9.05757136e-11, 1, -2.71390777e-09, -8.32227015e-05, -2.71391531e-09, -1),
     ["SCP-049 Containment"] = CFrame.new(588.777649, 41.3043518, 50.7085762, -0.0229714476, -3.94236892e-08, 0.99973613, -8.37877394e-08, 1, 3.75088618e-08, -0.99973613, -8.29039948e-08, -0.0229714476),
     ["SCP-966 Containment"] = CFrame.new(686.146545, 40.3479881, 61.1217422, -0.0701451972, -6.58064581e-09, -0.997536778, -2.3809682e-10, 1, -6.58015287e-09, 0.997536778, -2.24055802e-10, -0.0701451972),
-    ["SCP-409 Containment"] = CFrame.new(-54.826149, 40.3479881, -52.2171135, -0.996951699, 2.57388466e-09, 0.0780210271, 9.98967797e-10, 1, -2.02248316e-08, -0.0780210271, -2.00852384e-08, -0.996951699),
+    ["SCP-409 Containment"] = CFrame.new(-83.4825287, 36.3777657, -26.4090843, -0.99308461, -1.62683227e-05, -0.117396154, 1.78790306e-05, 0.99999994, -0.000289819727, 0.117396154, -0.000289914547, -0.99308461),
     ["Helipad"] = CFrame.new(-573.932983, 31.156765, 482.278534, 0.999801993, 0, 0.0198955834, 0, 1, 0, -0.0198955834, 0, 0.999801993),
     ["Containment Shelter"] = CFrame.new(230.015823, 40.3044395, 418.03009, 0.999654591, 2.28488261e-06, 0.0262805205, -1.49617236e-07, 1, -8.12514336e-05, -0.0262805205, 8.12194412e-05, 0.999654591),
     ["Nuclear Blast Shelter"] = CFrame.new(234.370987, 40.3044395, 461.834869, 0.999883413, 1.88937497e-06, 0.015285152, -1.38187727e-06, 1, -3.32125855e-05, -0.015285152, 3.31875817e-05, 0.999883413),
@@ -82,23 +78,23 @@ local antiBan = main:Tab("Anti-Ban")
 
 --// SCPs Tab \\--
 
-local infect409 = scps:Toggle("Infect everyone with SCP-409.", function(state)
+--[[local infect409 = scps:Toggle("Infect everyone with SCP-409.", function(state)
     run409 = state
     
     while run409 do
         local startingCFrame = GetLocalPlayerHumanoidRootPart().CFrame
         
-        TweenTo(CFrame.new(-56.1624794, 40.3479881, -38.4821701, -0.999674559, 6.94282818e-08, -0.0255114809, 7.11540693e-08, 1, -6.67397657e-08, 0.0255114809, -6.85332893e-08, -0.999674559), true)
-        wait(0.5)
-        firetouchinterest(GetLocalPlayerHumanoidRootPart(), scp409, 0)
-        firetouchinterest(GetLocalPlayerHumanoidRootPart(), scp409, 1)
-        wait(1)
-        TweenTo(startingCFrame, true)
+        repeat
+            TweenTo(CFrame.new(-92.116951, 36.3777542, -8.34976864, -0.995872736, 6.13096702e-08, -0.0907606483, 6.68435476e-08, 1, -5.79325743e-08, 0.0907606483, -6.37602326e-08, -0.995872736), true)
+            wait()
+        until localPlayer.Character.RightLowerArm:FindFirstChild("Crystal")
         
         for x, y in pairs(game.Players:GetPlayers()) do
             if y ~= localPlayer and GetLocalPlayerHumanoidRootPart() and y.Character.HumanoidRootPart then
-                firetouchinterest(GetLocalPlayerCharacter().RightLowerArm, y.Character.HumanoidRootPart, 0)
-                firetouchinterest(GetLocalPlayerCharacter().RightLowerArm, y.Character.HumanoidRootPart, 1)
+                repeat
+                    TweenTo(y.Character.HumanoidRootPart.CFrame, true)
+                    wait()
+                until y.Character.RightLowerArm:FindFirstChild("Crystal") or localPlayer.Character.Humanoid.Health == 0 or y.Character.Humanoid.Health == 0
             end
         end
 
@@ -107,7 +103,7 @@ local infect409 = scps:Toggle("Infect everyone with SCP-409.", function(state)
     end
 end)
 
---[[local infect008 = scps:Toggle("Infect everyone with SCP-008.", function(state)
+local infect008 = scps:Toggle("Infect everyone with SCP-008.", function(state)
     run008 = state
     
     while run008 do        
@@ -130,6 +126,7 @@ end)
     end
 end)]]
 
+scps:Label("SCP-409 will be temporarily disabled until I fix it.")
 scps:Label("SCP-008 will be temporarily disabled until I fix it.")
 
 local enrageSCP096 = scps:Button("Enrage SCP-096", function()
@@ -149,7 +146,7 @@ local getSCARH = combat:Button("Obtain SCAR-H.", function()
     
     TweenTo(CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483), false)
     
-    wait(0.3)
+    wait(1.2)
 
     TweenTo(startingCFrame, true)
 end)
@@ -186,8 +183,8 @@ local hideName = antiBan:Button("Hide name.", function()
     GetLocalPlayerCharacter().Humanoid.Health = 0
 
     localPlayer.CharacterAdded:Connect(function()
-        for i = 1, 99 do
-            GetLocalPlayerCharacter():WaitForChild("Head"):WaitForChild("Tag"):Destroy()
+        for i = 1, 5 do
+            GetLocalPlayerCharacter():WaitForChild("Head"):WaitForChild("Tag"):WaitForChild("User"):Destroy()
         end
     end)
 end)
