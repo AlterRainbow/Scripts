@@ -105,12 +105,20 @@ local scps = main:Page("SCP")
 local combat = main:Page("Combat")
 local teleports = main:Page("Teleports")
 local antiBan = main:Page("Anti-Ban")
+local settings = main:Page("Settings")
 
 local infectors = scps:Section("Infectors")
 local other = scps:Section("Other")
 local weapons = combat:Section("Weapons")
 local teleportLocations = teleports:Section("Locations")
 local antibanSection = antiBan:Section("Anti-ban")
+local UIsection = settings:Section("UI")
+
+--// Settings Page \\--
+
+UIsection:Keybind("Toggle UI", Enum.KeyCode.RightShift, function()
+    main:toggle()
+end, function() end)
 
 --// SCPs Tab \\--
 
