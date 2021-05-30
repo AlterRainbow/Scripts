@@ -443,7 +443,7 @@ do
 		self.toggling = true
 		
 		local container = self.container.Main
-		local topbar = container.TopBar
+		local topbar = container.Topbar
 		
 		if self.position then
 			functions:Tween(container, {
