@@ -1,7 +1,7 @@
 --// Variables \\--
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/Scripts/main/VenyxCustom.lua", true))()
-local moderators = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/Scripts/main/SCP%3A%20Roleplay%20Moderators.lua"))()
+local moderators = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlterRainbow/Scripts/main/SCP%3B%20Roleplay%20Moderators.lua"))()
 local tweenService = game:GetService("TweenService")
 local localPlayer = game.Players.LocalPlayer
 local scpsPath = game.workspace.SCPs
