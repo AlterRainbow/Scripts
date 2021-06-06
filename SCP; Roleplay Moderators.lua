@@ -55,6 +55,7 @@ faggots = {
     "mystery3525",
     "JellyGuys1234",
     "errore6742",
+    "wafflesx24"
 }
 
 return faggots
