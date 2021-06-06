@@ -47,7 +47,9 @@ faggots = {
     "AnonymousFunds",
     "ApexFunds",
     "CorporateFunds",
-    "DualityDork"
+    "DualityDork",
+    "occultpuppy",
+    "ToxicEye102"
 }
 
 return faggots
