@@ -42,7 +42,12 @@ faggots = {
     "Nocturno_Plays",
     "nearlyfresh_avocado",
     "Rileytate22",
-    "RyBird"
+    "RyBird",
+    "Amphaesia",
+    "AnonymousFunds",
+    "ApexFunds",
+    "CorporateFunds",
+    "DualityDork"
 }
 
 return faggots
