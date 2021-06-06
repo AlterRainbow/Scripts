@@ -50,7 +50,11 @@ faggots = {
     "DualityDork",
     "occultpuppy",
     "ToxicEye102",
-    "XaviFunds"
+    "XaviFunds",
+    "snipermanxx24",
+    "mystery3525",
+    "JellyGuys1234",
+    "errore6742",
 }
 
 return faggots
