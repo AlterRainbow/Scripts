@@ -120,6 +120,9 @@ UIsection:Keybind("Toggle UI", Enum.KeyCode.RightShift, function()
     main:toggle()
 end, function() end)
 
+UIsection:Button("Close UI", function() game.CoreGui["SCP: Roleplay"]:Destroy() end)
+
+
 --// SCPs Tab \\--
 
 infectors:Button("Temporarily disabled.", function() print("Venyx doesn't have labels, that is why you pressed this button.") end)
@@ -189,7 +192,7 @@ local getSCARH = weapons:Button("Obtain SCAR-H.", function()
     
     TweenTo(CFrame.new(-33.9765739, 87.8479919, 258.198547, 0.998205483, 6.22754426e-09, 0.0598821491, -4.19422319e-09, 1, -3.40810722e-08, -0.0598821491, 3.37687531e-08, 0.998205483), false)
     
-    wait(1.2)
+    wait(5)
 
     TweenTo(startingCFrame, false)
 end)
