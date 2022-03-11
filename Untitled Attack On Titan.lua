@@ -14,7 +14,7 @@ mt.__namecall = newcclosure(function(self, ...)
         end
     end
     
-    return nc(self, unpack(args))
+    return nc(self, unpack(...))
 end)
 
 setreadonly(mt, true)
