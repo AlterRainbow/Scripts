@@ -19,5 +19,7 @@ end)
 
 setreadonly(mt, true)
 
+print("executed")
+
 -- infinite gas and infinite blade durability
 -- Alter#6089
