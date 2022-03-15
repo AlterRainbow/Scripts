@@ -1,3 +1,3 @@
-Please tell me if a script does not work.
+Dm me bugs.
 
 Discord: Alter#6089
